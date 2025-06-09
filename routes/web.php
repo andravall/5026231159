@@ -5,6 +5,7 @@ use App\Http\Controllers\Link;
 use App\Http\Controllers\Pegawai2Controller;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\PegawaiController;
+use App\Http\Controllers\RAMController;
 
 // Route bawaan default laravel
 Route::get('/', function () {
@@ -38,11 +39,20 @@ Route::get('/blog', [BlogController::class, 'home']);
 Route::get('/blog/tentang', [BlogController::class, 'tentang']);
 Route::get('/blog/kontak', [BlogController::class, 'kontak']);
 
-//Route CRUD Pegawai
+// Route CRUD Pegawai
 Route::get('/pegawai', [PegawaiController::class, 'index']);
 Route::get('/pegawai/tambah', [PegawaiController::class,'tambah']);
 Route::post('/pegawai/store', [PegawaiController::class,'store']);
 Route::get('/pegawai/edit/{id}', [PegawaiController::class,'edit']);
 Route::post('/pegawai/update', [PegawaiController::class,'update']);
-Route::post('/pegawai/hapus/{id}', [PegawaiController::class,'hapus']);
+Route::delete('/pegawai/hapus/{id}', [PegawaiController::class, 'hapus']);
 Route::get('/pegawai/cari', [PegawaiController::class, 'cari']);
+
+// Route CRUD RAM
+Route::get('/ram', [RAMController::class, 'index']);
+Route::get('/ram/tambah', [RAMController::class,'tambah']);
+Route::post('/ram/store', [RAMController::class,'store']);
+Route::get('/ram/edit/{id}', [RAMController::class,'edit']);
+Route::post('/ram/update', [RAMController::class,'update']);
+Route::delete('/ram/hapus/{id}', [RAMController::class, 'hapus']);
+Route::get('/ram/cari', [RAMController::class, 'cari']);

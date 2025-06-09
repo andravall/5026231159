@@ -50,7 +50,7 @@
         </a>
         <a href="{{ url('/pegawai') }}" class="card">
             <img src="{{ asset('images/page-frontend/number-10.png') }}" alt="CRUD PEGAWAI">
-            <p>CRUD Pegawai</p>
+            <p>CRUD</p>
         </a>
     </div>
 

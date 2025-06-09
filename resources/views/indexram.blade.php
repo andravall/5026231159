@@ -1,6 +1,7 @@
 @extends('template')
 
 @section('content')
+
     <h3>Data RAM</h3>
 
     <!-- Menampilkan pesan sukses jika ada -->
@@ -10,9 +11,18 @@
         </div>
     @endif
 
-    <a href="{{ route('ram.create') }}" class="btn btn-primary">+ Tambah RAM Baru</a>
-    <br><br>
+    <!-- Tombol untuk menambah RAM -->
+    <a href="ram/tambah" class="btn btn-primary">+ Tambah RAM Baru</a>
+    <p>Cari Data RAM :</p>
 
+    <!-- Form Pencarian RAM -->
+    <form action="ram/cari" method="GET">
+        <input type="text" class="form-control" name="cari" placeholder="Cari RAM ..">
+        <input type="submit" class="btn btn-info" value="CARI">
+    </form>
+    <br/>
+
+    <!-- Tabel Data RAM -->
     <table class="table table-striped">
         <tr>
             <th>Merk RAM</th>
@@ -21,6 +31,7 @@
             <th>Berat</th>
             <th>Opsi</th>
         </tr>
+
         @foreach($ram as $r)
         <tr>
             <td>{{ $r->merkRAM }}</td>
@@ -28,13 +39,13 @@
             <td>{{ $r->tersedia ? 'Tersedia' : 'Tidak Tersedia' }}</td>
             <td>{{ $r->berat }}</td>
             <td>
-                <!-- Link Edit RAM -->
-                <a href="{{ route('ram.edit', $r->id) }}" class="btn btn-success">Edit</a>
+                <!-- Tombol Edit RAM -->
+                <a href="/ram/edit/{{ $r->ID }}" class="btn btn-success">Edit</a>
 
-                <!-- Form untuk Hapus dengan metode DELETE -->
-                <form action="{{ route('ram.destroy', $r->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
+                <!-- Tombol Hapus RAM -->
+                <form action="/ram/hapus/{{ $r->ID }}" method="POST" style="display:inline;" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data RAM ini?')">
                     @csrf
-                    @method('DELETE')
+                    @method('DELETE') <!-- Menyimulasikan metode DELETE -->
                     <button type="submit" class="btn btn-danger">Hapus</button>
                 </form>
             </td>
@@ -42,5 +53,7 @@
         @endforeach
     </table>
 
-    {{ $ram->links() }} <!-- Pagination -->
+    <!-- Pagination -->
+    {{ $ram->links() }}
+
 @endsection

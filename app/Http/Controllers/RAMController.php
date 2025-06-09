@@ -2,23 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\RAM;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class RAMController extends Controller
 {
     // Menampilkan semua data RAM
     public function index()
     {
-        // Mengambil semua data RAM dari database `belajar_laravel`
-        $ram = RAM::paginate(10);  // Menampilkan 10 data per halaman
-        return view('RAM.index', compact('ram'));
+        // Mengambil data dari tabel ram dengan pagination
+        $ram = DB::table('ram')->paginate(10);  // Menampilkan 10 data per halaman
+
+        // Mengirim data RAM ke view indexram
+        return view('indexram', ['ram' => $ram]);
     }
 
     // Menampilkan form untuk menambah RAM
-    public function create()
+    public function tambah()
     {
-        return view('RAM.create');
+        // Memanggil view untuk form tambah RAM
+        return view('tambahram');
     }
 
     // Menyimpan data RAM baru
@@ -32,27 +35,31 @@ class RAMController extends Controller
             'berat' => 'required|numeric'
         ]);
 
-        // Simpan data RAM
-        RAM::create($request->all());
+        // Insert data ke tabel ram
+        DB::table('ram')->insert([
+            'merkRAM' => $request->merkRAM,
+            'hargaRAM' => $request->hargaRAM,
+            'tersedia' => $request->tersedia,
+            'berat' => $request->berat
+        ]);
 
-        // Kembalikan ke halaman daftar RAM dengan pesan sukses
-        return redirect()->route('ram.index')->with('success', 'Data RAM berhasil ditambahkan!');
+        // Alihkan halaman ke halaman daftar RAM dengan pesan sukses
+        return redirect('/ram')->with('success', 'Data RAM berhasil ditambahkan!');
     }
 
     // Menampilkan form untuk edit data RAM
     public function edit($id)
-{
-    // Cari data RAM berdasarkan ID
-    $ram = RAM::findOrFail($id);
-    return view('RAM.edit', compact('ram'));
-}
+    {
+        // Mengambil data RAM berdasarkan ID
+        $ram = DB::table('ram')->where('ID', $id)->get();
+
+        // Mengirim data RAM yang ditemukan ke view editram
+        return view('editram', ['ram' => $ram]);
+    }
 
     // Menyimpan perubahan data RAM
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        // Cari data RAM berdasarkan ID
-        $ram = RAM::findOrFail($id);
-
         // Validasi input
         $request->validate([
             'merkRAM' => 'required|max:25',
@@ -61,23 +68,40 @@ class RAMController extends Controller
             'berat' => 'required|numeric'
         ]);
 
-        // Update data RAM
-        $ram->update($request->all());
+        // Update data RAM di tabel ram berdasarkan ID
+        DB::table('ram')->where('ID', $request->ID)->update([
+            'merkRAM' => $request->merkRAM,
+            'hargaRAM' => $request->hargaRAM,
+            'tersedia' => $request->tersedia,
+            'berat' => $request->berat
+        ]);
 
-        // Kembalikan ke halaman daftar RAM dengan pesan sukses
-        return redirect()->route('ram.index')->with('success', 'Data RAM berhasil diubah!');
+        // Alihkan halaman ke halaman daftar RAM dengan pesan sukses
+        return redirect('/ram')->with('success', 'Data RAM berhasil diubah!');
     }
 
     // Menghapus data RAM
-    public function destroy($id)
+    public function hapus($id)
     {
-        // Cari data RAM berdasarkan ID
-        $ram = RAM::findOrFail($id);
+        // Menghapus data RAM berdasarkan ID
+        DB::table('ram')->where('ID', $id)->delete();
 
-        // Hapus data RAM
-        $ram->delete();
+        // Alihkan halaman ke halaman daftar RAM dengan pesan sukses
+        return redirect('/ram')->with('success', 'Data RAM berhasil dihapus!');
+    }
 
-        // Kembalikan ke halaman daftar RAM dengan pesan sukses
-        return redirect()->route('ram.index')->with('success', 'Data RAM berhasil dihapus!');
+    // Menyaring data RAM berdasarkan pencarian
+    public function cari(Request $request)
+    {
+        // Menangkap data pencarian
+        $cari = $request->cari;
+
+        // Mengambil data dari tabel ram sesuai pencarian
+        $ram = DB::table('ram')
+            ->where('merkRAM', 'like', "%" . $cari . "%")
+            ->paginate();
+
+        // Mengirim data RAM dan pencarian ke view indexram
+        return view('indexram', ['ram' => $ram, 'cari' => $cari]);
     }
 }

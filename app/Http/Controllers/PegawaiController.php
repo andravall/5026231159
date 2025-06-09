@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 
-
 class PegawaiController extends Controller
 {
     //
@@ -46,13 +45,19 @@ class PegawaiController extends Controller
 
 	// method untuk edit data pegawai
 	public function edit($id)
-	{
-		// mengambil data pegawai berdasarkan id yang dipilih
-		$pegawai = DB::table('pegawai')->where('pegawai_id',$id)->get();
-		// passing data pegawai yang didapat ke view edit.blade.php
-		return view('edit',['pegawai' => $pegawai]);
+{
+    // mengambil data pegawai berdasarkan id yang dipilih
+    $pegawai = DB::table('pegawai')->where('pegawai_id', $id)->first();
 
-	}
+    // Cek jika data pegawai tidak ditemukan
+    if (!$pegawai) {
+        return redirect('/pegawai')->with('error', 'Pegawai tidak ditemukan.');
+    }
+
+    // passing data pegawai yang didapat ke view edit.blade.php
+    return view('edit', ['pegawai' => $pegawai]);
+}
+
 
 	// update data pegawai
 	public function update(Request $request)
@@ -70,13 +75,16 @@ class PegawaiController extends Controller
 
 	// method untuk hapus data pegawai
 	public function hapus($id)
-	{
-		// menghapus data pegawai berdasarkan id yang dipilih
-		DB::table('pegawai')->where('pegawai_id',$id)->delete();
+    {
+        // Menghapus data pegawai berdasarkan id
+        DB::table('pegawai')->where('pegawai_id', $id)->delete();
 
-		// alihkan halaman ke halaman pegawai
-		return redirect('/pegawai');
-	}
+        // Mengarahkan kembali ke halaman daftar pegawai dengan pesan sukses
+        return redirect('/pegawai')->with('success', 'Pegawai berhasil dihapus!');
+    }
+
+
+    // method untuk mencari data pegawai
     public function cari(Request $request)
 	{
 		// menangkap data pencarian

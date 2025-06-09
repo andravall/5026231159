@@ -13,46 +13,49 @@
 
     <div class="container">
         <a href="{{ url('/pertemuan3') }}" class="card">
-            <img src="{{ asset('image/tugas1.png') }}" alt="HTML DASAR">
+            <img src="{{ asset('images/page-frontend/number-1.png') }}" alt="HTML DASAR">
             <p>HTML Dasar & CSS</p>
         </a>
         <a href="{{ url('/pertemuan4') }}" class="card">
-            <img src="{{ asset('image/tugas3.png') }}" alt="SIDEBAR BOOTSTRAP">
+            <img src="{{ asset('images/page-frontend/number-2.png') }}" alt="SIDEBAR BOOTSTRAP">
             <p>SIDEBAR Bootstrap</p>
         </a>
         <a href="{{ url('/template1') }}" class="card">
-            <img src="{{ asset('image/tugas4.png') }}" alt="Template1">
+            <img src="{{ asset('images/page-frontend/number-3.png') }}" alt="Template1">
             <p>16 April 2025</p>
         </a>
         <a href="{{ url('/pertemuan7-js1') }}" class="card">
-            <img src="{{ asset('image/tugas5.png') }}" alt="FORM VALIDASI 1">
+            <img src="{{ asset('images/page-frontend/number-4.png') }}" alt="FORM VALIDASI 1">
             <p>Form dan Validasi 1</p>
         </a>
         <a href="{{ url('/pertemuan7-js2') }}" class="card">
-            <img src="{{ asset('image/tugas6.png') }}" alt="FORM VALIDASI 2">
+            <img src="{{ asset('images/page-frontend/number-5.png') }}" alt="FORM VALIDASI 2">
             <p>Form dan Validasi 2</p>
         </a>
         <a href="{{ url('/tugaslinktree') }}" class="card">
-            <img src="{{ asset('image/tugas7.png') }}" alt="Linktree">
+            <img src="{{ asset('images/page-frontend/number-6.png') }}" alt="Linktree">
             <p>Linktree</p>
         </a>
         <a href="{{ url('/ets') }}" class="card">
-            <img src="{{ asset('image/tugas8.png') }}" alt="ETS">
+            <img src="{{ asset('images/page-frontend/number-7.png') }}" alt="ETS">
             <p>ETS</p>
         </a>
         <a href="{{ url('/formulir') }}" class="card">
-            <img src="{{ asset('image/tugas8.png') }}" alt="BLOG">
+            <img src="{{ asset('images/page-frontend/number-8.png') }}" alt="FORMULIR">
             <p>Formulir</p>
         </a>
         <a href="{{ url('/blog') }}" class="card">
-            <img src="{{ asset('image/tugas8.png') }}" alt="BLOG">
+            <img src="{{ asset('images/page-frontend/number-9.png') }}" alt="BLOG">
             <p>Blog</p>
         </a>
         <a href="{{ url('/pegawai') }}" class="card">
-            <img src="{{ asset('image/tugas8.png') }}" alt="CRUD PEGAWAI">
-            <p>CRUD Pegawai</p>
+            <img src="{{ asset('images/page-frontend/number-10.png') }}" alt="CRUD PEGAWAI">
+            <p>CRUD</p>
         </a>
     </div>
 
+    <footer style="margin-top: auto; padding: 20px; text-align: center; color: #ffffff;">
+        &copy; 2025 Mohammad Ferdinand Valliandra. All rights reserved.
+    </footer>
 </body>
 </html>
