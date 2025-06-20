@@ -8,6 +8,7 @@ use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\RAMController;
 use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\BelanjaController;
+use App\Http\Controllers\NilaiController;
 
 // Route bawaan default laravel
 Route::get('/', function () {
@@ -73,3 +74,8 @@ Route::get('/belanja', [BelanjaController::class, 'index']);
 Route::get('/belanja/tambah', [BelanjaController::class, 'tambah']);
 Route::post('/belanja/store', [BelanjaController::class, 'store']);
 Route::get('/belanja/hapus/{id}', [BelanjaController::class, 'hapus']);
+
+// Route Nilai
+Route::get('/eas', [NilaiController::class, 'index']);
+Route::get('/eas/tambah', [NilaiController::class, 'tambah']);
+Route::post('/eas/store', [NilaiController::class, 'store']);
